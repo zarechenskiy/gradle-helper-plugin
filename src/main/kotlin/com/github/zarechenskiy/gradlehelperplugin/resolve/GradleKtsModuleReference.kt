@@ -1,5 +1,6 @@
 package com.github.zarechenskiy.gradlehelperplugin.resolve
 
+import com.github.zarechenskiy.gradlehelperplugin.getModuleNamePrefix
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.rootManager
@@ -25,6 +26,7 @@ class GradleKtsModuleReference(
         return project.allModules()
             .map { it.name.substringAfter(project.getModuleNamePrefix()) }
             .filter {
+                 it != project.name &&
                 !it.endsWith(MAIN_SUBMODULE_NAME) &&
                 !it.endsWith(TEST_SUBMODULE_NAME)
             }
@@ -32,8 +34,6 @@ class GradleKtsModuleReference(
             .toTypedArray()
     }
 }
-
-private fun Project.getModuleNamePrefix() = "$name."
 
 private fun Project.findModuleWithName(moduleName: String): Module? {
     return allModules().firstOrNull {

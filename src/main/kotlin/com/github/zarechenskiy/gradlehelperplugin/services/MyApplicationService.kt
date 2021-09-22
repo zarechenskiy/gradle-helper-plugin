@@ -1,10 +1,10 @@
 package com.github.zarechenskiy.gradlehelperplugin.services
 
-import com.github.zarechenskiy.gradlehelperplugin.MyBundle
+import com.github.zarechenskiy.gradlehelperplugin.GradleHelperPluginBundle
 
 class MyApplicationService {
 
     init {
-        println(MyBundle.message("applicationService"))
+        println(GradleHelperPluginBundle.message("applicationService"))
     }
 }

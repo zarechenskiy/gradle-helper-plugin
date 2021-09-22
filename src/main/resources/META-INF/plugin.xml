@@ -13,6 +13,18 @@
 
         <psi.referenceContributor language="kotlin"
                                   implementation="com.github.zarechenskiy.gradlehelperplugin.services.GradleKtsReferenceContributor"/>
+
+        <localInspection
+                implementationClass="com.github.zarechenskiy.gradlehelperplugin.inspections.GradleKtsRedundantDependencyInspection"
+                enabledByDefault="true"
+                cleanupTool="true"
+                groupPath="Gradle KTS"
+                groupBundle="messages.GradleHelperPluginBundle"
+                language="kotlin"
+                hasStaticDescription="true"
+                level="WARNING"
+                displayName="Redundant dependency"
+                groupKey="group.names.redundant.constructs"/>
     </extensions>
 
     <applicationListeners>

@@ -4,7 +4,9 @@ val GRADLE_DEPENDENCY_TYPES = listOf(
     "implementation",
     "testImplementation",
     "runtimeOnly",
-    "compileOnly"
+    "compileOnly",
+    "compile",
+    "api"
 )
 
 const val MAIN_SUBMODULE_NAME = "main"
@@ -20,3 +22,5 @@ const val GRADLE_MODULE_NAME_DELIMITER = ':'
 const val GRADLE_DEPENDENCIES_BLOCK_NAME = "dependencies"
 
 const val BUILD_GRADLE_KTS_FILE_NAME = "build.gradle.kts"
+
+const val GRADLE_LIBRARY_NAME_PREFIX = "Gradle: "
