@@ -10,6 +10,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.zarechenskiy.gradlehelperplugin.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.zarechenskiy.gradlehelperplugin.services.MyProjectService"/>
+
+        <psi.referenceContributor language="kotlin"
+                                  implementation="com.github.zarechenskiy.gradlehelperplugin.services.GradleKtsReferenceContributor"/>
     </extensions>
 
     <applicationListeners>
