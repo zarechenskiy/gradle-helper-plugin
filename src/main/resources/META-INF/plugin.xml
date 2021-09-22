@@ -63,4 +63,13 @@
         <listener class="com.github.zarechenskiy.gradlehelperplugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+    <actions>
+        <action id="AddMultiplatformTarget"
+                class="com.github.zarechenskiy.gradlehelperplugin.actions.AddMultiplatformTargetAction">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+    </actions>
+
+    <resource-bundle>messages.GradleHelperPluginBundle</resource-bundle>
 </idea-plugin>
