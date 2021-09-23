@@ -1,7 +1,7 @@
 package com.github.zarechenskiy.gradlehelperplugin
 
-import com.github.zarechenskiy.gradlehelperplugin.resolve.*
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
 import com.intellij.psi.util.parentsOfType
 import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtStringTemplateExpression
@@ -9,8 +9,9 @@ import org.jetbrains.kotlin.psi.KtStringTemplateExpression
 fun List<KtCallExpression>.isModuleDependencyDeclaration(): Boolean {
     if (size != 3 ||
         get(0).calleeExpression?.text != PROJECT_WIDE_DEPENDENCY_DECLARATION_CALL ||
-        get(1).calleeExpression?.text !in GRADLE_DEPENDENCY_TYPES ||
-        get(2).calleeExpression?.text != GRADLE_DEPENDENCIES_BLOCK_NAME) {
+        get(1).calleeExpression?.text !in DEPENDENCY_DECLARATION_LEVELS ||
+        get(2).calleeExpression?.text != DEPENDENCIES_BLOCK_NAME
+    ) {
         return false
     }
     return true
@@ -18,12 +19,16 @@ fun List<KtCallExpression>.isModuleDependencyDeclaration(): Boolean {
 
 fun List<KtCallExpression>.isLibraryDependencyDeclaration(): Boolean {
     if (size != 2 ||
-        get(0).calleeExpression?.text !in GRADLE_DEPENDENCY_TYPES ||
-        get(1).calleeExpression?.text != GRADLE_DEPENDENCIES_BLOCK_NAME) {
+        get(0).calleeExpression?.text !in DEPENDENCY_DECLARATION_LEVELS ||
+        get(1).calleeExpression?.text != DEPENDENCIES_BLOCK_NAME
+    ) {
         return false
     }
     return true
 }
+
+fun PsiElement.isInsideBuildGradleKtsFile() =
+    containingFile.name == BUILD_GRADLE_KTS_FILE_NAME
 
 fun KtStringTemplateExpression.isModuleDependencyDeclaration() =
     parentsOfType<KtCallExpression>().toList().isModuleDependencyDeclaration()

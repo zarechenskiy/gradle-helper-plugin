@@ -25,6 +25,8 @@
                 level="WARNING"
                 displayName="Redundant dependency"
                 groupKey="group.names.redundant.constructs"/>
+
+        <documentationProvider implementation="com.github.zarechenskiy.gradlehelperplugin.documentation.DependencyDeclarationDocumentationProvider"/>
     </extensions>
 
     <applicationListeners>

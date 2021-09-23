@@ -1,10 +1,9 @@
 package com.github.zarechenskiy.gradlehelperplugin.inspections
 
 import com.github.zarechenskiy.gradlehelperplugin.*
-import com.github.zarechenskiy.gradlehelperplugin.resolve.BUILD_GRADLE_KTS_FILE_NAME
-import com.github.zarechenskiy.gradlehelperplugin.resolve.GRADLE_LIBRARY_NAME_PREFIX
-import com.github.zarechenskiy.gradlehelperplugin.resolve.INTELLIJ_MODULE_NAME_DELIMITER
-import com.github.zarechenskiy.gradlehelperplugin.resolve.MAIN_SUBMODULE_NAME
+import com.github.zarechenskiy.gradlehelperplugin.GRADLE_LIBRARY_NAME_PREFIX
+import com.github.zarechenskiy.gradlehelperplugin.INTELLIJ_MODULE_NAME_DELIMITER
+import com.github.zarechenskiy.gradlehelperplugin.MAIN_SUBMODULE_NAME
 import com.intellij.codeInspection.*
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
@@ -35,10 +34,9 @@ class GradleKtsRedundantDependencyInspection : LocalInspectionTool(), CleanupLoc
         private var moduleDependencies: Set<String>? = null
 
         override fun visitStringTemplateExpression(expression: KtStringTemplateExpression) {
-            val file = expression.containingFile
-            if (file.name != BUILD_GRADLE_KTS_FILE_NAME) return
+            if (!expression.isInsideBuildGradleKtsFile()) return
 
-            initDependenciesSets(file)
+            initDependenciesSets(expression.containingFile)
             processDependencyDeclaration(expression)
 
             super.visitStringTemplateExpression(expression)

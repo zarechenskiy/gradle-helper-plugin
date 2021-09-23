@@ -1,6 +1,6 @@
 package com.github.zarechenskiy.gradlehelperplugin.resolve
 
-import com.github.zarechenskiy.gradlehelperplugin.getModuleNamePrefix
+import com.github.zarechenskiy.gradlehelperplugin.*
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.rootManager
