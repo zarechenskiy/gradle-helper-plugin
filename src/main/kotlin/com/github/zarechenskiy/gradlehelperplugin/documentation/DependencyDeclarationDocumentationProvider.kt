@@ -8,17 +8,14 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.parentOfType
-import com.intellij.psi.util.parentsOfType
 import org.jetbrains.kotlin.idea.KotlinDocumentationProvider
 import org.jetbrains.kotlin.nj2k.postProcessing.resolve
-import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtReferenceExpression
-import java.lang.StringBuilder
 
 class DependencyDeclarationDocumentationProvider : AbstractDocumentationProvider() {
     companion object {
-        private const val SEE_ALSO_APPENDIX =
-            "See also: <a href=\"https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph\">https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph</a>"
+        private const val GRADLE_DOCUMENTATION_LINK =
+            "https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph"
     }
 
     private val kotlinDocumentationProvider = KotlinDocumentationProvider()
@@ -33,23 +30,15 @@ class DependencyDeclarationDocumentationProvider : AbstractDocumentationProvider
                 val fetchedDoc = getDocumentation(element.text)
                 if (fetchedDoc != null) {
                     content { p { append(fetchedDoc) } }
-                    content { p { append(SEE_ALSO_APPENDIX) } }
+                    content {
+                        p {
+                            append("See also: <a href=\"$GRADLE_DOCUMENTATION_LINK\">$GRADLE_DOCUMENTATION_LINK</a>")
+                        }
+                    }
                 }
             }
         }
         return null
-    }
-
-    private fun StringBuilder.content(f: StringBuilder.() -> Unit) {
-        append(CONTENT_START)
-        f()
-        append(CONTENT_END)
-    }
-
-    private fun StringBuilder.p(f: StringBuilder.() -> Unit) {
-        append("<p>")
-        f()
-        append("</p>")
     }
 
     override fun getCustomDocumentationElement(
@@ -65,13 +54,22 @@ class DependencyDeclarationDocumentationProvider : AbstractDocumentationProvider
     }
 }
 
+private fun StringBuilder.content(f: StringBuilder.() -> Unit) {
+    append(CONTENT_START)
+    f()
+    append(CONTENT_END)
+}
+
+private fun StringBuilder.p(f: StringBuilder.() -> Unit) {
+    append("<p>")
+    f()
+    append("</p>")
+}
+
 private fun PsiElement.isDependencyDeclaration() =
     isInsideBuildGradleKtsFile() &&
     isInsideDependenciesBlock() &&
     text in DEPENDENCY_DECLARATION_LEVELS
-
-private fun PsiElement.isInsideDependenciesBlock() =
-    parentsOfType<KtCallExpression>().lastOrNull()?.calleeExpression?.text == DEPENDENCIES_BLOCK_NAME
 
 private fun getDocumentation(functionName: String) =
     when (functionName) {
