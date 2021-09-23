@@ -1,0 +1,117 @@
+<templateSet group="Kotlin Scripts">
+    <template name="kotlinOptions"
+              value="tasks.withType&lt;org.jetbrains.kotlin.gradle.tasks.KotlinCompile&gt; {&#10;kotlinOptions {&#10;$END$&#10;}&#10;}"
+              description="Creates section with kotlin options"
+              toReformat="true"
+              toShortenFQNames="true">
+        <context>
+            <option name="gradle.helper.toplevel" value="true"/>
+        </context>
+    </template>
+
+    <template name="compilerArgs"
+              value="tasks.withType&lt;org.jetbrains.kotlin.gradle.tasks.KotlinCompile&gt; {&#10;kotlinOptions {&#10;freeCompilerArgs += &quot;$END$&quot;&#10;}&#10;}"
+              description="Creates section with kotlin options"
+              toReformat="true"
+              toShortenFQNames="true">
+        <context>
+            <option name="gradle.helper.toplevel" value="true"/>
+        </context>
+    </template>
+
+
+    <template name="-progressive"
+              value="-progressive"
+              description="Enable the progressive mode for the compiler"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-werror"
+              value="-Werror"
+              description="Turn any warnings into a compilation error"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-language-version"
+              value="-language-version 1.$END$"
+              description="Provide source compatibility with the specified version of Kotlin"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-api-version"
+              value="-api-version 1.$END$"
+              description="Allow using declarations only from the specified version of Kotlin bundled libraries"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-Xuse-old-backend"
+              value="-Xuse-old-backend"
+              description="Use the old JVM backend"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-Xuse-old-backend"
+              value="-Xuse-old-backend"
+              description="Use the old JVM backend"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-Xstring-concat"
+              value="-Xstring-concat=$indy-with-constants$|$indy$|$inline$"
+              description="Select code generation scheme for string concatenation"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+
+
+    <template name="-Xlambdas"
+              value="-Xlambdas=$class$|$indy$"
+              description="Select code generation scheme for lambdas"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+
+    <template name="-Xjspecify-annotations"
+              value="-Xjspecify-annotations=$ignore$|$strict$|$warn$"
+              description="Specify behavior for jspecify annotations"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+
+</templateSet>

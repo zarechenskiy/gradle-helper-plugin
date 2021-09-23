@@ -27,6 +27,36 @@
                 groupKey="group.names.redundant.constructs"/>
 
         <documentationProvider implementation="com.github.zarechenskiy.gradlehelperplugin.documentation.DependencyDeclarationDocumentationProvider"/>
+
+        <defaultLiveTemplates file="/liveTemplates/Scripts.xml"/>
+        <liveTemplateContext implementation="com.github.tags.generator.KotlinOptionsContext"/>
+        <liveTemplateContext implementation="com.github.tags.generator.FreeCompilerArgsContext"/>
+
+        <intentionAction>
+            <className>com.github.tags.generator.KotlinOptions</className>
+            <bundleName>messages.KotlinBundle</bundleName>
+<!--            <categoryKey>group.names.kotlin</categoryKey>-->
+        </intentionAction>
+        <intentionAction>
+            <className>com.github.tags.generator.FreeCompilerArgs</className>
+            <bundleName>messages.KotlinBundle</bundleName>
+            <!--            <categoryKey>group.names.kotlin</categoryKey>-->
+        </intentionAction>
+        <intentionAction>
+            <className>com.github.tags.generator.JvmTargetArg</className>
+            <bundleName>messages.KotlinBundle</bundleName>
+            <!--            <categoryKey>group.names.kotlin</categoryKey>-->
+        </intentionAction>
+        <intentionAction>
+            <className>com.github.tags.generator.AllWarningsAsErrors</className>
+            <bundleName>messages.KotlinBundle</bundleName>
+            <!--            <categoryKey>group.names.kotlin</categoryKey>-->
+        </intentionAction>
+        <intentionAction>
+            <className>com.github.tags.generator.SetLanguageVersion</className>
+            <bundleName>messages.KotlinBundle</bundleName>
+            <!--            <categoryKey>group.names.kotlin</categoryKey>-->
+        </intentionAction>
     </extensions>
 
     <applicationListeners>
