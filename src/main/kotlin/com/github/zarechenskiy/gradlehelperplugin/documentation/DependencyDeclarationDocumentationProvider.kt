@@ -32,14 +32,18 @@ class DependencyDeclarationDocumentationProvider : AbstractDocumentationProvider
                 }
                 val fetchedDoc = getDocumentation(element.text)
                 if (fetchedDoc != null) {
-                    append(CONTENT_START)
-                    p { append(fetchedDoc) }
-                    p { append(SEE_ALSO_APPENDIX) }
-                    append(CONTENT_END)
+                    content { p { append(fetchedDoc) } }
+                    content { p { append(SEE_ALSO_APPENDIX) } }
                 }
             }
         }
         return null
+    }
+
+    private fun StringBuilder.content(f: StringBuilder.() -> Unit) {
+        append(CONTENT_START)
+        f()
+        append(CONTENT_END)
     }
 
     private fun StringBuilder.p(f: StringBuilder.() -> Unit) {
