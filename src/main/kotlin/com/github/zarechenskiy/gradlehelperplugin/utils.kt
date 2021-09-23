@@ -2,9 +2,7 @@ package com.github.zarechenskiy.gradlehelperplugin
 
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
-import com.intellij.psi.util.parentsOfType
 import org.jetbrains.kotlin.psi.KtCallExpression
-import org.jetbrains.kotlin.psi.KtStringTemplateExpression
 
 fun List<KtCallExpression>.isModuleDependencyDeclaration(): Boolean {
     if (size != 3 ||
@@ -29,9 +27,6 @@ fun List<KtCallExpression>.isLibraryDependencyDeclaration(): Boolean {
 
 fun PsiElement.isInsideBuildGradleKtsFile() =
     containingFile.name == BUILD_GRADLE_KTS_FILE_NAME
-
-fun KtStringTemplateExpression.isModuleDependencyDeclaration() =
-    parentsOfType<KtCallExpression>().toList().isModuleDependencyDeclaration()
 
 fun String.withoutQuotes() =
     replace("\"", "")

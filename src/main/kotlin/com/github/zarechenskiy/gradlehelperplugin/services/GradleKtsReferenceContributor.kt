@@ -1,6 +1,6 @@
 package com.github.zarechenskiy.gradlehelperplugin.services
 
-import com.github.zarechenskiy.gradlehelperplugin.resolve.GradleKtsModuleDependencyReferenceProvider
+import com.github.zarechenskiy.gradlehelperplugin.resolve.GradleKtsModuleReferenceProvider
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceContributor
@@ -11,7 +11,7 @@ class GradleKtsReferenceContributor : PsiReferenceContributor() {
         with(registrar) {
             registerReferenceProvider(
                 PlatformPatterns.psiElement(PsiElement::class.java),
-                GradleKtsModuleDependencyReferenceProvider()
+                GradleKtsModuleReferenceProvider()
             )
         }
 }
