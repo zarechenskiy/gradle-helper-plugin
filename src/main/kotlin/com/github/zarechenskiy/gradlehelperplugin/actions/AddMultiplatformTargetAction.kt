@@ -25,7 +25,7 @@ class AddMultiplatformTargetAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         if (e.project == null) return
         val file = e.getData(CommonDataKeys.PSI_FILE) ?: return
-        val excludedNames = findExistingTargetGradleNames(file)
+        val excludedNames = findTargetGradleNames(file)
         val actionGroup = createActionGroup(file.createSmartPointer(), excludedNames)
         showPopup(e, actionGroup)
     }

@@ -13,17 +13,40 @@ internal object KnownTargets {
                     .withEnvironment(Environment("browser"))
                     .withEnvironment(Environment("nodejs"))
             ),
-        TargetGroup("mpp.target.linux")
-            .withTarget(Target("linuxX64"))
-            .withTarget(Target("linuxArm64")),
-
+        TargetGroup("mpp.target.android")
+            .withTarget(Target("android")),
+        TargetGroup("mpp.target.android.ndk")
+            .withTarget(Target("androidNativeArm32"))
+            .withTarget(Target("androidNativeArm64")),
+        TargetGroup("mpp.target.ios")
+            .withTarget(Target("iosArm32"))
+            .withTarget(Target("iosArm64"))
+            .withTarget(Target("iosX64"))
+            .withTarget(Target("iosSimulatorArm64")),
+        TargetGroup("mpp.target.watchos")
+            .withTarget(Target("watchosArm32"))
+            .withTarget(Target("watchosArm64"))
+            .withTarget(Target("watchosX86"))
+            .withTarget(Target("watchosX64"))
+            .withTarget(Target("watchosSimulatorArm64")),
+        TargetGroup("mpp.target.tvos")
+            .withTarget(Target("tvosArm64"))
+            .withTarget(Target("tvosX64"))
+            .withTarget(Target("tvosSimulatorArm64")),
         TargetGroup("mpp.target.macos")
-            .withTarget(Target("macosX64"))
-            .withTarget(Target("macosArm64")),
-
+            .withTarget(NativeTarget("macosX64"))
+            .withTarget(NativeTarget("macosArm64")),
+        TargetGroup("mpp.target.linux")
+            .withTarget(NativeTarget("linuxArm64"))
+            .withTarget(NativeTarget("linuxArm32Hfp"))
+            .withTarget(NativeTarget("linuxMips32"))
+            .withTarget(NativeTarget("linuxMipsel32"))
+            .withTarget(NativeTarget("linuxX64")),
         TargetGroup("mpp.target.windows")
-            .withTarget(Target("mingwX64"))
-            .withTarget(Target("mingwX86"))
+            .withTarget(NativeTarget("mingwX64"))
+            .withTarget(NativeTarget("mingwX86")),
+        TargetGroup("mpp.target.wasm")
+            .withTarget(Target("wasm32")),
         )
 
     val targetGradleNames = targetGroups.flatMap { it.targets.map { target -> target.gradleName } }.toSet()
@@ -61,7 +84,7 @@ interface GradleKtsMultiplatformTemplate {
         get() = "${gradleName}(){\n}"
 }
 
-class Target(
+open class Target(
     override val gradleName: String,
     val requiresEnvironment: Boolean = false
 ) : GradleKtsMultiplatformTemplate {
@@ -72,6 +95,22 @@ class Target(
         environments.add(environment)
         return this
     }
+}
+
+class NativeTarget(
+    override val gradleName: String,
+    requiresEnvironment: Boolean = false
+) : Target(gradleName, requiresEnvironment) {
+    override val stringTemplate: String
+        get() = """
+        ${gradleName}(){
+            binaries {
+                executable {
+                    // Binary configuration.
+                }
+            }
+        }
+        """.trimIndent()
 }
 
 class Environment(
