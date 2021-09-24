@@ -10,7 +10,7 @@
     </template>
 
     <template name="compilerArgs"
-              value="tasks.withType&lt;org.jetbrains.kotlin.gradle.tasks.KotlinCompile&gt; {&#10;kotlinOptions {&#10;freeCompilerArgs += &quot;$END$&quot;&#10;}&#10;}"
+              value="tasks.withType&lt;org.jetbrains.kotlin.gradle.tasks.KotlinCompile&gt; {&#10;kotlinOptions {&#10;freeCompilerArgs += listOf(&quot;$END$&quot;)&#10;}&#10;}"
               description="Creates section with kotlin options"
               toReformat="true"
               toShortenFQNames="true">
@@ -29,6 +29,27 @@
             <option name="gradle.helper.freeCompilerArgs" value="true"/>
         </context>
     </template>
+
+    <template name="-verbose"
+              value="-verbose"
+              description="Enable verbose logging output which includes details of the compilation process"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-version"
+              value="-version"
+              description="Display the compiler version"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
 
     <template name="-werror"
               value="-Werror"
@@ -90,6 +111,15 @@
         </context>
     </template>
 
+    <template name="-Xemit-jvm-type-annotations"
+              value="-Xemit-jvm-type-annotations"
+              description="Emit JVM type annotations in bytecode"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
 
 
     <template name="-Xlambdas"
@@ -110,6 +140,77 @@
               toShortenFQNames="false">
         <context>
             <option name="gradle.helper.freeCompilerArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-Xlint:all"
+              value="-Xlint:all"
+              description="Enable all recommended warnings"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-Xlint:none"
+              value="-Xlint:none"
+              description="Disable all warnings"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
+        </context>
+    </template>
+
+
+    <template name="-Werror"
+              value="-Werror"
+              description="Terminate compilation if warnings occur"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-version"
+              value="-version"
+              description="Print version information"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-target"
+              value="-target 1.$END$"
+              description="Generate class files that target a specified version of the VM"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-source"
+              value="-source 1.$END$"
+              description="Specifies the version of source code accepted"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
+        </context>
+    </template>
+
+    <template name="-deprecation"
+              value="-deprecation"
+              description="Show a description of each use or override of a deprecated member or class"
+              toReformat="false"
+              toShortenFQNames="false">
+        <context>
+            <option name="gradle.helper.applicationDefaultJvmArgs" value="true"/>
         </context>
     </template>
 

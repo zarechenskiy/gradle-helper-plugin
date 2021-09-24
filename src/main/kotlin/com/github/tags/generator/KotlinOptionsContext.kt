@@ -20,17 +20,29 @@ class KotlinOptionsContext : TemplateContextType("gradle.helper.toplevel", "Scri
 
 class FreeCompilerArgsContext : TemplateContextType("gradle.helper.freeCompilerArgs", "Compiler arguments context") {
   override fun isInContext(file: PsiFile, offset: Int): Boolean {
-    val elementAt = checkIsScript(file, offset) ?: return false
-    val string = elementAt.parent.parent
-    if (string !is KtStringTemplateExpression) return false
-    val binaryExpr = string.parent
-    if (binaryExpr !is KtBinaryExpression) return false
-
-    val freeCompilerArgs = binaryExpr.left ?: return false
-    val fqName = freeCompilerArgs.resolveToCall()?.resultingDescriptor?.fqNameOrNull() ?: return false
-    return fqName.asString() == "org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions.freeCompilerArgs" ||
-        fqName.asString() == "org.jetbrains.kotlin.gradle.dsl.KotlinCommonToolOptions.freeCompilerArgs"
+    val fqNameString = checkIsBinaryExpression(file, offset)
+    return fqNameString == "org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions.freeCompilerArgs" ||
+        fqNameString == "org.jetbrains.kotlin.gradle.dsl.KotlinCommonToolOptions.freeCompilerArgs"
   }
+}
+
+class DefaultJvmArgsContext : TemplateContextType("gradle.helper.applicationDefaultJvmArgs", "Java compiler arguments context") {
+  override fun isInContext(file: PsiFile, offset: Int): Boolean {
+    val fqNameString = checkIsBinaryExpression(file, offset)
+    return fqNameString == "applicationDefaultJvmArgs"
+  }
+}
+
+private fun checkIsBinaryExpression(file: PsiFile, offset: Int): String? {
+  val elementAt = checkIsScript(file, offset) ?: return null
+  val string = elementAt.parent.parent
+  if (string !is KtStringTemplateExpression) return null
+  val binaryExpr = string.parent.parent.parent.parent
+  if (binaryExpr !is KtBinaryExpression) return null
+
+  val freeCompilerArgs = binaryExpr.left ?: return null
+  val resultingDescriptor = freeCompilerArgs.resolveToCall()?.resultingDescriptor ?: return null
+  return resultingDescriptor.fqNameOrNull()?.asString()
 }
 
 private fun checkIsScript(file: PsiFile, offset: Int): PsiElement? {
